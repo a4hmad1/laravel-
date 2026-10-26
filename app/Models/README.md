@@ -1,43 +1,86 @@
-# 🗄️ Eloquent Models (`app/Models`)
+# 🗄️ مۆدێلەکان — Eloquent Models (`app/Models`)
 
-> **ئاستی فێربوون**: 🟢 Junior (دەستپێک - هەنگاوی ٥)
-
-## 📌 ئەم فۆڵدەرە چییە؟
-مۆدێل نوێنەری خشتەیەکی بنکەدراوەیە. بە بەکارهێنانی تایبەتمەندی بەهێزی Eloquent ORM، بەبێ نووسینی کۆدی درێژی SQL دەتوانیت پەیوەندییەکان (Relationships) و داتاکان بخوێنیتەوە و دەستکاری بکەیت.
+> **ئاستی پێویست:** ئاستی سەرەتایی (Junior Developer - هەنگاوی ٥)  
+> **ئامانجی سەرەکی:** پەیوەندی بەستن لەگەڵ خشتەکانی بنکەدراوە بە شێوازی ئۆبجێکت (Eloquent ORM).
 
 ---
 
-## 🔄 پەیوەندییە سەرەکییەکان (Relationships)
-1. `hasOne` / `belongsTo` (تاک بۆ تاک)
-2. `hasMany` / `belongsTo` (تاک بۆ زۆر، بۆ نموونە بەکارهێنەر و پۆستەکانی)
-3. `belongsToMany` (زۆر بۆ زۆر، بۆ نموونە خوێندکار و کۆرسەکان)
+## 📌 مۆدێل بە کوردییەکی سادە چییە؟
+
+مۆدێل (Model) واتە: **وەرگێڕی نێوان کۆدی PHP و خشتەی بنکەدراوە.**  
+پێشتر لە پرۆگرامسازیدا، بۆ ئەوەی زانیارییەک لە داتابەیس بهێنیت دەبوو کۆدی درێژی SQL بنووسیت وەک:
+`SELECT * FROM users WHERE status = 'active'`
+
+بەڵام لە لارافێڵدا، مۆدێل وایکردووە بە زمانی ئینگلیزی ئاسایی کۆد بنووسیت:
+`User::where('status', 'active')->get();`
+
+هەر خشتەیەکی بنکەدراوە (وەک `students`, `orders`, `courses`)، مۆدێلێکی تایبەت بە خۆی هەیە لەم فۆڵدەرە بە پیتی گەورە و تاک (وەک `Student`, `Order`, `Course`).
 
 ---
 
-## 💻 نموونەی کۆد
+## 🔄 پەیوەندییە گرنگەکانی نێوان مۆدێلەکان (Relationships)
+
+1. **تاک بۆ تاک (`hasOne` / `belongsTo`):** هەر بەکارهێنەرێک تەنها یەک پرۆفایلی هەیە.
+2. **تاک بۆ زۆر (`hasMany` / `belongsTo`):** هەر مامۆستایەک دەتوانێت چەندین وانە بڵێتەوە.
+3. **زۆر بۆ زۆر (`belongsToMany`):** هەر قوتابییەک چەندین کۆرس وەردەگرێت، و هەر کۆرسێک چەندین قوتابی تێدایە.
+
+---
+
+## 💻 نموونەی کۆد (`Course.php`)
 
 ```php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Model
+class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'password'];
+    // ئەو ستوونانەی ڕێگەپێدراون دەستکاری بکرێن
+    protected $fillable = [
+        'teacher_id',
+        'title',
+        'price',
+        'is_published',
+    ];
 
-    public function posts(): HasMany
+    /**
+     * ئەم کۆرسە سەر بە کام مامۆستایە؟
+     */
+    public function teacher(): BelongsTo
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsTo(User::class, 'teacher_id');
+    }
+
+    /**
+     * ئەم کۆرسە چەند وانەی (Lessons) هەیە؟
+     */
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(Lesson::class);
     }
 }
 ```
 
 ---
 
-## 🔗 سەرچاوەی فێربوون
-* 📖 [Laravel Docs - Eloquent ORM](https://laravel.com/docs/eloquent)
-* 🎥 [Laracasts - Eloquent Relationships Deep Dive](https://laracasts.com)
+## 🛠️ فەرمانی تێرمیناڵ بۆ دروستکردنی مۆدێل لەگەڵ مایگرەیشن:
+
+```bash
+php artisan make:model Course -m
+```
+
+---
+
+## 🎓 سەرچاوە فێرکارییە تایبەتەکان بۆ ئەم بابەتە
+
+* 🎥 **Laracasts (تایبەت بە تێگەیشتنی تەواوی Eloquent):**  
+  [Laracasts: Eloquent Relationships Demystified](https://laracasts.com/series/eloquent-relationships)
+* 📺 **فێرکاری ڤیدیۆیی لە یوتیوب:**  
+  [YouTube: Laravel Eloquent ORM Full Course](https://www.youtube.com/results?search_query=laravel+eloquent+relationships+tutorial)
+* 📖 **بەڵگەنامەی فەرمی لارافێڵ:**  
+  [Laravel Docs: Eloquent Getting Started](https://laravel.com/docs/eloquent)
