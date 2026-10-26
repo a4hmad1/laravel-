@@ -5,6 +5,11 @@
 
 ---
 
+## 🖼️ وێنەی ڕێڕەوی کارکردن (Visual Workflow)
+
+![Workflow Diagram](diagram.svg)
+
+
 ## 📌 مایگرەیشن بە کوردییەکی سادە چییە؟
 
 مایگرەیشن وەک **سیستەمی Git وایە بۆ بنکەدراوەکەت (Version Control for Database)!**  
