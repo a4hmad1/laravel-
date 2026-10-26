@@ -1,88 +1,115 @@
-# Simple Laravel WhatsApp OTP Authentication
+# 🎓 پڕۆژەی فێرکاری و نەخشەی تەلارسازی لارافێڵ (Laravel Architecture Masterclass)
 
-A clean, modern Laravel application featuring **WhatsApp OTP Authentication** powered by the **Dwilio API**.
+بەخێربێن بۆ ئەم پڕۆژە فێرکارییە! ئەم پڕۆژەیە بە شێوازێکی تایبەت و زانستی دیزاین کراوە بۆ قوتابیان و پەرەپێدەران، تا لە ئاستی سەرەتاییەوە (**Junior**) دەستپێبکەن و بە هەنگاوی زانستی بگەنە ئاستی باڵا (**Senior Developer**).
 
----
-
-## 🚀 Features
-
-1. **User Registration with WhatsApp Verification**:
-   - Requires a valid WhatsApp phone number.
-   - Automatically sends an OTP to WhatsApp via Dwilio (`POST /api/sms`) to confirm the number is active and available.
-   - User verifies their 6-digit OTP to complete registration and log in.
-
-2. **User Login**:
-   - Supports login using **WhatsApp Phone Number** (accepts `07XXXXXXXXX`, `+964XXXXXXXXXX`, etc.) or **Email**.
-   - Password verification with "Remember Me" option.
-
-3. **Forgot & Reset Password via WhatsApp OTP**:
-   - User enters their registered WhatsApp number.
-   - Dwilio delivers a secure 6-digit verification code to the user's WhatsApp.
-   - User verifies the OTP and sets their new password in one simple step.
-
-4. **Phone Normalization**:
-   - Automatically normalizes local Iraqi phone numbers (`0770XXXXXXX`, `770XXXXXXX`, `+964 770 XXXXXXX`) into the standard international format (`964770XXXXXXX`).
-   - Also supports Saudi Arabia, UAE, and GCC mobile numbers.
-
-5. **Dwilio API Integration**:
-   - Base URL: `https://api.dwilio.com`
-   - Configured with your API key: `dw_5156921b_382fd3e5a96c7405656955aca848fee1f5f9d6f0905fbb7f`
-   - Real-time balance and WhatsApp quota status widget displayed in the dashboard.
-
-6. **Modern, Responsive UI**:
-   - Styled with Tailwind CSS and designed with a clean WhatsApp emerald color scheme.
-   - Countdown timer for OTP resend.
-   - Flash alerts for success and error messages.
+هەر فۆڵدەرێک لە ناو ئەم پڕۆژەیەدا خاوەنی فایلی تایبەتی `README.md`ـی خۆیەتی لەگەڵ نموونەی کۆدی ڕاستەقینە، ڕێڕەوی کارکردن (Workflow)، و بەستەری فێرکاری.
 
 ---
 
-## 🛠️ Requirements & Setup
+## 🗺️ نەخشەی خوێندن: لە سەرەتاوە بۆ ئاستی پێشکەوتوو (Junior to Senior Roadmap)
 
-- **PHP**: 8.2+ (PHP 8.5 tested)
-- **Composer**: 2.x
-- **Database**: SQLite (pre-configured out of the box in `database/database.sqlite`)
+بۆ ئەوەی فێرخواز بە شێوازێکی تەندروست فێری لارافێڵ بێت و سەرلێشێواو نەبێت، خوێندنی فۆڵدەرەکان بەم ڕیزبەندییە ٣ قۆناغییە پەیڕەو بکەن:
 
-### 1. Environment Configuration
-
-The `.env` file already contains your credentials:
-
-```env
-DWILIO_API_KEY=dw_5156921b_382fd3e5a96c7405656955aca848fee1f5f9d6f0905fbb7f
-DWILIO_BASE_URL=https://api.dwilio.com
 ```
-
-### 2. Run Database Migrations
-
-```bash
-php artisan migrate
+[قۆناغی ١: دەستپێک و بنەماکان (Junior)]
+   │
+   ├── 1. routes/                 (ڕێڕەوە سەرەکییەکان)
+   ├── 2. app/Http/Controllers/   (کۆنتڕۆڵەرەکان)
+   ├── 3. resources/views/        (ڕووکار بە مۆتۆڕی Blade)
+   ├── 4. database/migrations/    (دروستکردنی خشتەکان)
+   ├── 5. app/Models/             (مۆدێلەکان و Eloquent ORM)
+   ├── 6. database/seeders/       (داتای سەرەتایی و تاقیکردنەوە)
+   └── 7. app/Http/Requests/      (پشکنین و ڤالیدەیشنی داتاکان)
+   │
+   ▼
+[قۆناغی ٢: ڕێکخستنی کۆد و پڕۆژەی ڕاستەقینە (Mid-Level)]
+   │
+   ├── 8.  app/Http/Middleware/   (فلتەرەکانی پاراستن و دۆخ)
+   ├── 9.  app/Http/Resources/    (شێوازی ستانداردی API و JSON)
+   ├── 10. app/Enums/             (بەها جێگیرە نەگۆڕەکان)
+   ├── 11. app/Services/          (جیاکردنەوەی لۆجیکی ئاڵۆز لە کۆنتڕۆڵەر)
+   ├── 12. app/Mail/ & Notifications/ (ناردنی ئیمەیڵ و ئاگادارکردنەوە)
+   ├── 13. tests/                 (تاقیکردنەوەی خۆکار بە PHPUnit)
+   ├── 14. app/Rules/             (یاسای تایبەت بۆ ڤالیدەیشن)
+   └── 15. app/View/Components/   (کۆمپۆنێنتە دووبارەبووەکانی دیزاین)
+   │
+   ▼
+[قۆناغی ٣: تەلارسازی پێشکەوتوو و بەڕێوەبردنی سێرڤەر (Senior)]
+   │
+   ├── 16. app/Actions/           (تەلارسازی کڵاسی تاک ئەرک - Single Action)
+   ├── 17. app/DTOs/              (گواستنەوەی داتای پێکهاتەدار - Typesafe Data)
+   ├── 18. app/Jobs/              (ئەرکە پاشبنەماییەکان بە Queue)
+   ├── 19. app/Events/ & Listeners/ (سیستەمی کارکردن بەپێی ڕووداوەکان)
+   ├── 20. app/Policies/ & Observers/ (دەسەڵاتەکان و چاودێری مۆدێل)
+   ├── 21. app/Contracts/         (جێبەجێکردنی بنەماکانی SOLID و Interface)
+   ├── 22. app/Repositories/     (دابڕینی داتابەیس لە لۆجیک)
+   ├── 23. app/Broadcasting/      (پەخشی ڕاستەوخۆ بە WebSockets)
+   ├── 24. app/Casts/ & Scopes/   (تایبەتمەندییە قووڵەکانی Eloquent)
+   ├── 25. app/Console/Commands/  (فەرمانەکانی Artisan و Task Scheduling)
+   └── 26. app/Providers/ & Exceptions/ (کڕۆکی لارافێڵ و Service Container)
 ```
-
-### 3. Start Development Server
-
-```bash
-php artisan serve
-```
-
-Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 
 ---
 
-## 🧪 Automated Tests
+## 📂 نەخشەی تەواوی فۆڵدەرەکانی پڕۆژەکە (Interactive Directory Tree)
 
-The test suite covers full registration, OTP verification, phone normalization, login, and password reset flows:
+کلیك لەسەر هەر فۆڵدەرێک بکە بۆ خوێندنەوەی بەڵگەنامە و کورتە کۆرسەکەی:
 
-```bash
-php artisan test
-```
+* 📁 [**`app/`**](app) - کۆدی سەرەکی ئەپڵیکەیشن
+  * 🌐 **HTTP**:
+    * 🎮 [Controllers](app/Http/Controllers) - کۆنتڕۆڵەری داواکارییەکان
+    * 📝 [Requests](app/Http/Requests) - ڤالیدەیشنی فۆڕمەکان
+    * 📦 [Resources](app/Http/Resources) - گۆڕینی داتا بۆ API
+    * 🛡️ [Middleware](app/Http/Middleware) - فلتەری پاراستن و دۆخ
+    * 📤 [Responses](app/Http/Responses) - وەڵامدانەوە پێوانەییەکان
+  * 🗄️ **Database & Models**:
+    * 📄 [Models](app/Models) - مۆدێلەکان و پەیوەندییەکان
+    * 🔍 [Scopes](app/Models/Scopes) - فلتەری ئامادەکراوی کوێری
+    * 🎭 [Casts](app/Casts) - گۆڕینی تایپی داتای ستوونەکان
+  * ⚙️ **Business Logic & Architecture**:
+    * 💼 [Services](app/Services) - لۆجیکی ئاڵۆزی پڕۆژەکە
+    * ⚡ [Actions](app/Actions) - کڵاسی تاک ئەرک
+    * 🏛️ [Repositories](app/Repositories) - چینی دەرهێنانی داتا
+    * 🚚 [DTOs](app/DTOs) - ئۆبجێکتی گواستنەوەی داتا
+    * 🏷️ [Enums](app/Enums) - بەها نەگۆڕەکان
+    * 📋 [Contracts](app/Contracts) - ئینتەرفەیسەکان
+    * 🧬 [Traits](app/Traits) - کۆدی هاوبەشی کڵاسەکان
+  * ⚡ **Queues & Events**:
+    * ⏳ [Jobs](app/Jobs) - ڕیزی ئەرکە قورسەکان
+    * 📢 [Events](app/Events) - ڕووداوەکان
+    * 👂 [Listeners](app/Listeners) - گوێگر و جێبەجێکاری ڕووداو
+    * 📡 [Broadcasting](app/Broadcasting) - پەخشی ڕاستەوخۆ
+  * 🔒 **Security & Quality**:
+    * 👮 [Policies](app/Policies) - دەسەڵات و ڕێگەپێدان
+    * ✅ [Rules](app/Rules) - یاسای تایبەتی پشکنین
+    * 👀 [Observers](app/Observers) - چاودێری گۆڕانکاری مۆدێل
+  * ✉️ **Communications**:
+    * 📧 [Mail](app/Mail) - ناردنی ئیمەیڵ
+    * 🔔 [Notifications](app/Notifications) - ئاگادارکردنەوەکان
+  * 🖥️ **System**:
+    * ⌨️ [Console/Commands](app/Console/Commands) - فەرمانەکانی تێرمیناڵ
+    * ⚠️ [Exceptions](app/Exceptions) - بەڕێوەبردنی هەڵەکان
+    * 🔌 [Providers](app/Providers) - بەستنەوەی خزمەتگوزارییەکان
+    * 🧩 [View Components](app/View/Components) - پێکهاتەکانی ڕووکار
+    * 🛠️ [Helpers](app/Helpers) - فەنکشنە یارمەتیدەرەکان
 
-Result: `10 passed (36 assertions)`.
+* 📁 [**`routes/`**](routes) - ڕێڕەوەکانی وێب و API
+* 📁 [**`database/`**](database) - مایگرەیشن، فاکتۆری و سیدەرەکان
+  * 🏗️ [Migrations](database/migrations)
+  * 🏭 [Factories](database/factories)
+  * 🌱 [Seeders](database/seeders)
+* 📁 [**`resources/`**](resources) - دیزاین و فرۆنتێند
+  * 🎨 [Views (Blade)](resources/views)
+  * ⚡ [JavaScript & Assets](resources/js)
+* 📁 [**`tests/`**](tests) - تاقیکردنەوەی خۆکار بە PHPUnit
+* 📁 [**`storage/`**](storage) - کۆگای فایل و لۆگەکان
+* 📁 [**`config/`**](config) - ڕێکخستنە گشتییەکانی سیستەم
 
 ---
 
-## 📁 Project Structure
+## 🔗 سەرچاوە فێرکارییە گرنگەکان بۆ فێرخوازان (Learning Resources)
 
-- `app/Services/DwilioService.php`: Core integration service for phone normalization, OTP sending, and verification via Dwilio.
-- `app/Http/Controllers/AuthController.php`: Complete authentication logic for Login, Register, Verify, Forgot Password, and Dashboard.
-- `resources/views/auth/`: Clean Blade templates for `login`, `register`, `register-verify`, `forgot-password`, and `reset-password`.
-- `resources/views/dashboard.blade.php`: User dashboard with live gateway balance and profile card.
-- `routes/web.php`: Clean, readable web routes.
+* 📖 [بەڵگەنامەی فەرمی لارافێڵ (Laravel Documentation)](https://laravel.com/docs)
+* 🎥 [ماڵپەڕی فێرکاری فەرمی Laracasts](https://laracasts.com)
+* 📺 [کۆرسی تەواوی لارافێڵ لەسەر YouTube (FreeCodeCamp)](https://www.youtube.com/watch?v=MYyJ4PuL4pY)
+* 💡 [کۆرسی فەرمی دروستکردنی ئەپ بە لارافێڵ لە سەرەتاوە (Laravel Bootcamp)](https://bootcamp.laravel.com)

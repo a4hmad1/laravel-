@@ -35,9 +35,4 @@ return [
         ],
     ],
 
-    'dwilio' => [
-        'api_key' => env('DWILIO_API_KEY'),
-        'base_url' => env('DWILIO_BASE_URL', 'https://api.dwilio.com'),
-    ],
-
 ];
