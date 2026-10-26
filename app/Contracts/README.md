@@ -1,33 +1,21 @@
-# 📋 پەیماننامە و ڕێککەوتنەکان — Contracts & Interfaces (`app/Contracts`)
+# 📋 پەیماننامە و نەخشەکان — Contracts & Interfaces (`app/Contracts`)
 
 > **ئاستی پێویست:** ئاستی پێشکەوتوو (Senior Developer - هەنگاوی ٢١)  
-> **ئامانجی سەرەکی:** نەخشەسازی ستاندارد و جێبەجێکردنی بنەماکانی SOLID و پاک ڕاگرتنی پەیوەندی نێوان کڵاسەکان.
+> **ئامانجی سەرەکی:** جێبەجێکردنی بنەماکانی SOLID و تەلارسازی دابڕاو (Loose Coupling).
 
 ---
 
-## 📌 کۆنتراکت (Contract) بە کوردی چییە؟
-
-کۆنتراکت وەک **گرێبەستی شەرعی نێوان دوو لایەن** وایە!  
-کاتێک پڕۆژەیەکی گەورە دروست دەکەیت، تۆ گرێبەستێک (Interface) دادەنێیت بە ناوی `PaymentGatewayInterface` کە دەڵێت:
-«هەر کڵاسێک بیەوێت لەم پڕۆژەیەدا پارە وەربگرێت، دەبێت ئەم سێ فانکشنەی هەبێت: `charge()`, `refund()`, `verify()`».
-
-ئیتر سبەی گەر ویستت دەروازەی پارەدان لە **FIB** بگۆڕیت بۆ **FastPay** یان **QiCard**، تەنها بە گۆڕینی یەک دێڕ لە ناو `AppServiceProvider` دەیگۆڕیت بەبێ ئەوەی دەستکاری یەک پیتی کۆنتڕۆڵەرەکانت بکەیت!
+## 🖼️ وێنەی ڕێڕەوی کارکردن (Visual Workflow)
+![Workflow Diagram](diagram.svg)
 
 ---
 
-## 💻 نموونەی کۆد (`PaymentGatewayInterface.php`)
+## 📌 کۆنتراکت بە کوردی چییە؟
 
-```php
-namespace App\Contracts;
-
-interface PaymentGatewayInterface
-{
-    public function charge(float $amount): bool;
-    public function refund(string $transactionId): bool;
-}
-```
+کۆنتراکت بریتییە لە نەخشەی خانوو پێش دروستکردنی! نەخشەکە پێت دەڵێت چەند ژوور و دەرگای هەیە بەڵام خۆی بلۆک و چیمەنتۆ نییە.  
+لە پڕۆژەی لارافێڵدا، ئینتەرفەیسێک دروست دەکەیت تا کڵاسەکان ناچار بکات بە یەک یاسا کار بکەن، و ئەمەش وا دەکات گۆڕینی خزمەتگوزارییەکان لە داهاتوودا تەنها یەک خولەکی بوێت.
 
 ---
 
 ## 🎓 سەرچاوەی فێربوون
-* 🎥 [Laracasts: SOLID Principles in PHP - Interfaces](https://laracasts.com/series/solid-principles-in-php)
+* 🎥 [Laracasts: SOLID Principles in PHP](https://laracasts.com/series/solid-principles-in-php)

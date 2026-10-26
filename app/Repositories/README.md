@@ -1,43 +1,20 @@
 # 🏛️ کۆگای داتا — Repositories (`app/Repositories`)
 
 > **ئاستی پێویست:** ئاستی پێشکەوتوو (Senior Developer - هەنگاوی ٢٢)  
-> **ئامانجی سەرەکی:** جیاکردنەوەی لۆجیکی پڕۆژە لە چۆنیەتی هەڵگرتن و هێنانی داتا لە بنکەدراوەدا.
+> **ئامانجی سەرەکی:** دابڕینی تەواوی فەرمانەکانی بنکەدراوە لە کۆنتڕۆڵەرەکان.
 
 ---
 
-## 📌 ڕیپۆزیتۆری بە کوردییەکی سادە چییە؟
-
-ڕیپۆزیتۆری وەک **دەرمانخانە یان عەمباردار** وایە!  
-کاتێک تۆ دەچیتە دەرمانخانە، ناچیتە ناو ژووری عەمبارەکە تا دەرمانەکە خۆت بدۆزیتەوە؛ بەڵکو داواکارییەک دەدەیت بە کارمەندەکە و ئەو دەرمانەکەت بۆ دەهێنێت.  
-لە پڕۆژەی گەورەشدا:
-* کۆنتڕۆڵەر ڕاستەوخۆ دەستکاری داتابەیس ناکات.
-* لە ڕیپۆزیتۆری داوای دەکات: `$studentRepo->getTopPerformers(10)`.
-* ئەگەر سبەی بڕیارت دا ئەم داتایە لە داتابەیسی خێراتر (Redis) بهێنیت، تەنها ناوەڕۆکی ڕیپۆزیتۆری دەگۆڕیت بەبێ ئەوەی یەک دێڕی کۆنتڕۆڵەر دەستکاری بکەیت.
+## 🖼️ وێنەی ڕێڕەوی کارکردن (Visual Workflow)
+![Workflow Diagram](diagram.svg)
 
 ---
 
-## 💻 نموونەی کۆد (`StudentRepository.php`)
+## 📌 ڕیپۆزیتۆری بە کوردی چییە؟
 
-```php
-namespace App\Repositories;
-
-use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
-
-class StudentRepository
-{
-    public function getActiveStudents(): Collection
-    {
-        return User::where('role', 'student')
-            ->where('is_active', true)
-            ->latest()
-            ->get();
-    }
-}
-```
+ڕیپۆزیتۆری وەک عەمباردار وایە لە نێوان تۆ و کاڵاکاندا؛ تۆ پێی دەڵێیت «دە قوتابییە یەکەمەکانم بۆ بهێنە»، ئیتر ئەو بە دڵی خۆی بڕیار دەدات لە ناو داتابەیس بیهێنێت یان لە ناو کاش، کۆنتڕۆڵەرەکە کاتی بەم جیاوازییانەوە ناڕوات.
 
 ---
 
 ## 🎓 سەرچاوەی فێربوون
-* 🎥 [Laracasts: Repositories in Practice](https://laracasts.com/series/laravel-beyond-crud)
-* 📺 [YouTube: Laravel Repository Pattern Full Guide](https://www.youtube.com/results?search_query=laravel+repository+pattern+explained)
+* 🎥 [Laracasts: Repository Pattern Simplified](https://laracasts.com)
